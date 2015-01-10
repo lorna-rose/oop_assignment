@@ -1,6 +1,8 @@
 /* OOP assignment 2
 Lorna Keogh */
 
+PFont writing;
+int stage,level, lives, score;
 fallingBlock[] blocks;
 Player player;
 
@@ -8,15 +10,12 @@ void setup()
 {
   size(800,500);
   background(0);
+  writing = loadFont("ACaslonPro-Bold-48.vlw");
   
-  /*noFill();
-  //stroke(#ff00ff);
-  //rect(300,200,30,30);
-
-
-  //level = 1;
-  //lives = 4;
-  //score = 0;*/
+  stage = 1;
+  level = 0;
+  lives = 4;
+  score = 0;
 
   player = new Player();
   
@@ -32,12 +31,35 @@ float blockSpeed = 4.0f;
 
 void draw()
 {
-  player.display();
-  
-  for (int i = 0; i < blocks.length; i++ )
+  if (stage == 1)
   {
-    blocks[i].falling();
-    blocks[i].display();
+    background(0);
+    textAlign(CENTER);
+    textFont(writing,80);
+    text("Welcome",400,200);
+    textFont(writing, 60);
+    text("Press Space key for main menu", 400,300);
+   
+    if (key == ' ')
+    {
+      stage = 2;
+    }
+  }
+  if (stage == 2 )
+  {
+    background(#00ffff);
+    
+  }
+  
+  if (level == 1)
+  {
+    player.display();
+    
+    for (int i = 0; i < blocks.length; i++ )
+    {
+      blocks[i].falling();
+      blocks[i].display();
+    }
   }
 }
   
