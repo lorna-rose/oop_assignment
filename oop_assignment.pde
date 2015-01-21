@@ -95,6 +95,7 @@ void draw()
       Bullet bullet = (Bullet) bullets.get(i);
       bullet.draw();
     }
+    
     for (int i = 0; i < enemies.size(); i++)
     {
       Enemy enemy = (Enemy) enemies.get(i);
@@ -117,6 +118,7 @@ void draw()
         enemy.draw();
       }
     }
+    incy = false;
   }
 }
 
