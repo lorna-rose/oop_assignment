@@ -3,9 +3,17 @@ Lorna Keogh */
 
 PFont writing;
 int stage,level, lives, score;
+
+
+int pixelsize = 4;
+int gridsize = pixelsize * 7 + 5;
+int direction = 1;
+boolean incy = false;
+
 float startAngle;
 float angleVel = 0.23;
-fallingBlock[] blocks;
+ArrayList enemies = new ArrayList();
+ArrayList bullets = new ArrayList();
 Player player;
 Button[] menuButtons;
 int NUMBUTTONS = 3;
@@ -31,15 +39,9 @@ void setup()
 
   player = new Player();
   
-  blocks = new fallingBlock[6];
-  for ( int i = 0; i < 6; i++ )
-  {
-    blocks[i] = new fallingBlock();
-  }
-
+  createEnemies();
+  
 }
-
-float blockSpeed = 4.0f;
 
 void draw()
 {
@@ -86,12 +88,34 @@ void draw()
   if (level == 1)
   {
     clear();
-    player.display();
+    player.draw();
     
-    for (int i = 0; i < blocks.length; i++ )
+    for (int i = 0; i < bullets.size(); i++ )
     {
-      blocks[i].falling();
-      blocks[i].display();
+      Bullet bullet = (Bullet) bullets.get(i);
+      bullet.draw();
+    }
+    for (int i = 0; i < enemies.size(); i++)
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if (enemy.outside() == true)
+      {
+        direction *= (-1);
+        incy = true;
+        break;
+      }
+    }
+    for (int i = 0; i < enemies.size(); i++)
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if(!enemy.alive())
+      {
+        enemies.remove(i);
+      }
+      else
+      {
+        enemy.draw();
+      }
     }
   }
 }
@@ -118,6 +142,17 @@ void mousePressed()
   {
     exit();
     stop();
+  }
+}
+
+void createEnemies()
+{
+  for (int i = 0; i < width/gridsize/2; i++)
+  {
+    for (int j = 0; j <=5; j++)
+    {
+      enemies.add(new Enemy(i*gridsize, j*gridsize));
+    }
   }
 }
 
