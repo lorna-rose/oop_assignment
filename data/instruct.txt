@@ -1,0 +1,5 @@
+Instructions
+Use the LEFT and RIGHT keys to move
+CTRL lets you shoot
+To exit the game press E
+Press M to return to the main menu

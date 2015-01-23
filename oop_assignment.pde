@@ -99,16 +99,22 @@ void draw()
   {
     clear();
     textAlign(CENTER);
-    textFont(writing,50);
+    //textFont(writing,50);
     fill(#ff00ff);
-    text("Instructions",400,150);
-    textFont(writing,30);
-    fill(#00ffff);
-    text("Use the LEFT and RIGHT keys to move", 400,250);
-    text("CTRL lets you shoot", 400, 300);
-    text("To exit the game press E", 400, 350);
-    textFont(writing,20);
-    text("Press M to return to the main menu", 400,500);
+    
+    //load in text file to read in instructions
+    String lines[] = loadStrings("instruct.txt");
+    for(int i = 0; i < lines.length; i++)
+    {
+      textFont(writing,50);
+      text(lines[0], 400,150);
+      textFont(writing,30);
+      text(lines[1], 400,250);
+      text(lines[2], 400,300);
+      text(lines[3], 400,350);
+      textFont(writing,20);
+      text(lines[4], 400,500);
+    }
     
     if ( key == 'm' || key == 'M')
     {
