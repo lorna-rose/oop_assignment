@@ -1,4 +1,5 @@
-class Enemy extends SpaceShip {
+class Enemy extends SpaceShip 
+{
     Enemy(int xpos, int ypos) {
         x = xpos;
         y = ypos;
@@ -11,8 +12,11 @@ class Enemy extends SpaceShip {
     }
  
     void updateObj() {
-        if (frameCount%30 == 0) x += direction * gridsize;
-        if (incy == true) y += gridsize / 2;
+      if(level == 1)
+      {  
+      if (frameCount%30 == 0) x += direction * gridsize;
+        if (edge == true) y += gridsize / 2;
+      } 
     }
  
     boolean alive() {
@@ -20,6 +24,7 @@ class Enemy extends SpaceShip {
             Bullet bullet = (Bullet) bullets.get(i);
             if (bullet.x > x && bullet.x < x + 7 * pixelsize + 5 && bullet.y > y && bullet.y < y + 5 * pixelsize) {
                 bullets.remove(i);
+                score++;
                 return false;
             }
         }

@@ -1,14 +1,17 @@
-/* OOP assignment 2
+  /* OOP assignment 2
 Lorna Keogh */
 
 PFont writing;
 int stage,level, lives, score;
 
+boolean devMode = true;
+boolean sketchFullScreen(){
+  return ! devMode; }
 
 int pixelsize = 4;
-int gridsize = pixelsize * 7 + 5;
+int gridsize = pixelsize * 9;
 int direction = 1;
-boolean incy = false;
+boolean edge = false;
 
 float startAngle;
 float angleVel = 0.23;
@@ -21,15 +24,22 @@ boolean drawBoxes;
 
 void setup()
 {
-  size(800,600);
+  if (devMode)
+  {
+    size(800,600);
+  }
+  else
+  {
+    size(displayWidth, displayHeight);
+  }
   background(0);
   
   writing = loadFont("ArcadeClassic-48.vlw");
   
   menuButtons = new Button[3];
-  menuButtons[0] = new Button("Instructions", new PVector(400,200), 32, color(#BFBFAC), color(#ffffff));
-  menuButtons[1] = new Button("Play Game", new PVector(400,300), 32, color(#BFBFAC), color(#ffffff));
-  menuButtons[2] = new Button("Exit Game", new PVector(400,400), 32, color(#BFBFAC), color(#ffffff));
+  menuButtons[0] = new Button("Instructions", new PVector(400,200), 32, color(#00ffff), color(#0000ff));
+  menuButtons[1] = new Button("Play Game", new PVector(400,300), 32, color(#00ffff), color(#0000ff));
+  menuButtons[2] = new Button("Exit Game", new PVector(400,400), 32, color(#00ffff), color(#0000ff));
   drawBoxes = false;
   
   stage = 1;
@@ -50,6 +60,7 @@ void draw()
     background(0);
     textAlign(CENTER);
     textFont(writing,50);
+    fill(#ff00ff);
     text("Welcome",400,200);
     textFont(writing, 32);
     text("Press Space key for main menu", 400,300);
@@ -64,6 +75,7 @@ void draw()
   {
     textAlign(CENTER);
     textFont(writing,50);
+    fill(#ff00ff);
     text("Main Menu",400,150);
     
     displayMenu();
@@ -74,7 +86,13 @@ void draw()
     clear();
     textAlign(CENTER);
     textFont(writing,50);
+    fill(#ff00ff);
     text("Instructions",400,150);
+    textFont(writing,30);
+    fill(#00ffff);
+    text("Use the LEFT and RIGHT keys to move", 400,250);
+    text("ctrl lets you shoot", 400, 300);
+    text("To exit the game press E", 400, 350);
     textFont(writing,20);
     text("Press M to return to the main menu", 400,500);
     
@@ -102,7 +120,7 @@ void draw()
       if (enemy.outside() == true)
       {
         direction *= (-1);
-        incy = true;
+        edge = true;
         break;
       }
     }
@@ -118,8 +136,29 @@ void draw()
         enemy.draw();
       }
     }
-    incy = false;
+    edge = false;
+    
+    if( score == 66 )
+    {
+      level = 2;
+    }
+    
+    textFont(writing, 20);
+    fill(#ff00ff);
+    text("Score: "+score, 50,30);
+    text("  Lives: " +lives,130,30);
+    
+    if ( key == 'e' || key == 'E')
+    {
+      exit();
+      stop();
+    }
   }
+  
+  if (level == 2)
+  {
+  }
+
 }
 
 void displayMenu()
