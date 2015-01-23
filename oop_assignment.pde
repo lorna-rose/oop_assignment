@@ -1,23 +1,37 @@
   /* OOP assignment 2
-Lorna Keogh */
+Lorna Keogh - C13740351 
 
+  ---------Game Instructions--------
+ 
+       Basic Space Invaders game
+   Use LEFT and RIGHT arrows to move
+   The CTRL button lets you shoot
+   Kill all the ships to win
+   
+   
+ */
+
+//fonts and variables
 PFont writing;
 int stage,level, lives, score;
 
+//for display of screen
 boolean devMode = true;
 boolean sketchFullScreen(){
   return ! devMode; }
 
+//pixel size for ships and players
 int pixelsize = 4;
 int gridsize = pixelsize * 9;
 int direction = 1;
 boolean edge = false;
 
-float startAngle;
-float angleVel = 0.23;
+//create array lists
 ArrayList enemies = new ArrayList();
 ArrayList bullets = new ArrayList();
 Player player;
+
+//variables for menu
 Button[] menuButtons;
 int NUMBUTTONS = 3;
 boolean drawBoxes;
@@ -91,7 +105,7 @@ void draw()
     textFont(writing,30);
     fill(#00ffff);
     text("Use the LEFT and RIGHT keys to move", 400,250);
-    text("ctrl lets you shoot", 400, 300);
+    text("CTRL lets you shoot", 400, 300);
     text("To exit the game press E", 400, 350);
     textFont(writing,20);
     text("Press M to return to the main menu", 400,500);
@@ -145,8 +159,8 @@ void draw()
     
     textFont(writing, 20);
     fill(#ff00ff);
-    text("Score: "+score, 50,30);
-    text("  Lives: " +lives,130,30);
+    text("Score  "+score, 50,30);
+    text("  Lives  " +lives,130,30);
     
     if ( key == 'e' || key == 'E')
     {
@@ -157,6 +171,19 @@ void draw()
   
   if (level == 2)
   {
+    clear();
+    
+    background(0);
+    textAlign(CENTER);
+    textFont(writing, 40);
+    fill(#ff00ff);
+    text("You Win", 400,300);
+    
+    if ( key == 'e' || key == 'E' )
+    {
+      exit();
+      stop();
+    }
   }
 
 }
