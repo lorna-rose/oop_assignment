@@ -17,6 +17,11 @@ class Enemy extends SpaceShip
       if (frameCount%30 == 0) x += direction * gridsize;
         if (edge == true) y += gridsize / 2;
       } 
+     /* if(level == 2)//with the new level the speed will increase
+      {
+         if (frameCount%40 == 0) x += direction * gridsize;
+        if (edge == true) y += gridsize / 2;
+      }*/
     }
  
     boolean alive() {

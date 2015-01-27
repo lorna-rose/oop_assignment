@@ -11,6 +11,11 @@ Lorna Keogh - C13740351
    
  */
 
+//import file for use of sound in the game
+import ddf.minim.*;
+Minim minim;
+AudioPlayer game;
+
 //fonts and variables
 PFont writing;
 int stage,level, lives, score;
@@ -47,6 +52,11 @@ void setup()
     size(displayWidth, displayHeight);
   }
   background(0);
+  
+  //play music
+  minim = new Minim(this);
+  game = minim.loadFile("gameOOP.mp3");
+  game.play();
   
   writing = loadFont("ArcadeClassic-48.vlw");
   
@@ -125,59 +135,14 @@ void draw()
   
   if (level == 1)
   {
-    clear();
-    player.draw();
-    
-    for (int i = 0; i < bullets.size(); i++ )
-    {
-      Bullet bullet = (Bullet) bullets.get(i);
-      bullet.draw();
-    }
-    
-    for (int i = 0; i < enemies.size(); i++)
-    {
-      Enemy enemy = (Enemy) enemies.get(i);
-      if (enemy.outside() == true)
-      {
-        direction *= (-1);
-        edge = true;
-        break;
-      }
-    }
-    for (int i = 0; i < enemies.size(); i++)
-    {
-      Enemy enemy = (Enemy) enemies.get(i);
-      if(!enemy.alive())
-      {
-        enemies.remove(i);
-      }
-      else
-      {
-        enemy.draw();
-      }
-    }
-    edge = false;
-    
-    if( score == 66 )
-    {
-      level = 2;
-    }
-    
-    textFont(writing, 20);
-    fill(#ff00ff);
-    text("Score  "+score, 50,30);
-    text("  Lives  " +lives,130,30);
-    
-    if ( key == 'e' || key == 'E')
-    {
-      exit();
-      stop();
-    }
+    playgame();
   }
   
   if (level == 2)
   {
     clear();
+    //playgame();
+ 
     
     background(0);
     textAlign(CENTER);
@@ -229,6 +194,60 @@ void createEnemies()
     }
   }
 }
+
+void playgame()
+{
+  clear();
+    player.draw();
+    
+    for (int i = 0; i < bullets.size(); i++ )
+    {
+      Bullet bullet = (Bullet) bullets.get(i);
+      bullet.draw();
+    }
+    
+    for (int i = 0; i < enemies.size(); i++)
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if (enemy.outside() == true)
+      {
+        direction *= (-1);
+        edge = true;
+        break;
+      }
+    }
+    for (int i = 0; i < enemies.size(); i++)
+    {
+      Enemy enemy = (Enemy) enemies.get(i);
+      if(!enemy.alive())
+      {
+        enemies.remove(i);
+      }
+      else
+      {
+        enemy.draw();
+      }
+    }
+    edge = false;
+    
+    if( score == 66 )
+    {
+
+      level = 2;
+   
+    }
+    
+    textFont(writing, 20);
+    fill(#ff00ff);
+    text("Score  "+score, 50,30);
+    text("  Lives  " +lives,130,30);
+    
+    if ( key == 'e' || key == 'E')
+    {
+      exit();
+      stop();
+    }
+  }
 
 
   
