@@ -4,7 +4,7 @@ class Button
   color textColor, hoverColor;
   float size, tWidth;
   String text;
-  
+
   Button(String text, PVector pos, float size, color textColor, color hoverColor)
   {
     this.pos = pos;
@@ -15,7 +15,7 @@ class Button
     textSize(size);
     tWidth = textWidth(text);
   }
-  
+
   void draw(boolean on)
   {
     textSize(size);
@@ -25,11 +25,12 @@ class Button
     if (on)
       rect(pos.x, pos.y, tWidth, size);
   }
-  
+
   boolean containsMouse()
   {
     if (mouseX > pos.x && mouseX < pos.x + tWidth && mouseY > pos.y && mouseY < pos.y + size)
       return true;
-      else return false;
+    else return false;
   }
 }
+

@@ -1,49 +1,64 @@
-class Enemy extends SpaceShip 
-{
-    Enemy(int xpos, int ypos) {
-        x = xpos;
-        y = ypos;
-        sprite    = new String[5];
-        sprite[0] = "1011101";
-        sprite[1] = "0101010";
-        sprite[2] = "1111111";
-        sprite[3] = "0101010";
-        sprite[4] = "1000001";
+class Block { 
+  color h; 
+  color s; 
+  color b; 
+  float a; 
+  float xpos; 
+  float true_xpos; 
+  float true_ypos; 
+  float ypos; 
+  float xspeed; 
+  float d; 
+  float r; 
+  boolean imaDeadBlock=false; 
+
+
+  Block(color h_, color s_, color b_, float a_, float xpos_, float ypos_, float xspeed_) { 
+    h= h_; 
+    s= s_; 
+    b= b_; 
+    a=a_; 
+    xpos = xpos_; 
+    ypos = ypos_; 
+    xspeed = xspeed_;
+  } 
+
+  void display() { 
+    noStroke(); 
+    fill(h, s, b, a); 
+    r=20; 
+    true_xpos=xpos+50; 
+    true_ypos=ypos+50; 
+    rect(true_xpos, true_ypos, r, r);
+  } 
+
+
+
+  void move() { 
+    xpos = xpos + xspeed;
+  } 
+
+  void shift() { 
+    if (xpos+50 >= width-25) { 
+      ypos=ypos+20; 
+      xspeed=(xspeed*(-1));
+    } 
+    if (xpos+50<= 25) { 
+      ypos=ypos+20; 
+      xspeed=xspeed*(-1);
     }
- 
-    void updateObj() {
-      if(level == 1)
-      {  
-      if (frameCount%30 == 0) x += direction * gridsize;
-        if (edge == true) y += gridsize / 2;
-      } 
-     /* if(level == 2)//with the new level the speed will increase
-      {
-         if (frameCount%40 == 0) x += direction * gridsize;
-        if (edge == true) y += gridsize / 2;
-      }*/
+  } 
+  void destroyed() { 
+    imaDeadBlock=true; 
+
+    score++;
+  } 
+
+  void exitStageLeft() { 
+    if (imaDeadBlock==true) { 
+      xpos=-2000; 
+      xspeed=0;
     }
- 
-    boolean alive() {
-        for (int i = 0; i < bullets.size(); i++) {
-            Bullet bullet = (Bullet) bullets.get(i);
-            if (bullet.x > x && bullet.x < x + 7 * pixelsize + 5 && bullet.y > y && bullet.y < y + 5 * pixelsize) {
-                bullets.remove(i);
-                score++;
-                return false;
-            }
-        }
- 
-        return true;
-    }
- 
-    boolean outside() {
-        if (x + (direction*gridsize) < 0 || x + (direction*gridsize) > width - gridsize) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-}
- 
+  }
+} 
+

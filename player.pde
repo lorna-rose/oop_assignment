@@ -1,36 +1,49 @@
-class Player extends SpaceShip
-{
-  boolean canShoot = true;
-  int shootdelay = 0;
-  
-  Player()
+class Player { 
+  //declare variables 
+  int h; 
+  int s; 
+  int b; 
+  float xpos; 
+  float ypos; 
+  //boolean killed = false;
+
+
+  //constructor 
+  Player(int temp_h, int temp_s, int temp_b, float temp_xpos, float temp_ypos) { 
+    h=temp_h; 
+    s=temp_s; 
+    b=temp_b; 
+    xpos=temp_xpos; 
+    ypos=temp_ypos;
+  } 
+
+  void display() { 
+    noStroke(); 
+    fill(h, s, b); 
+    ellipse(xpos, ypos, 50, 50);
+  } 
+  void move()
   {
-        x = width/gridsize/2;
-        y = height - (10 * pixelsize);
-        sprite    = new String[5];
-        sprite[0] = "0010100";
-        sprite[1] = "0110110";
-        sprite[2] = "1111111";
-        sprite[3] = "1111111";
-        sprite[4] = "0111110";
-   }
-   
-   void updateObj()
+    if (keyPressed && keyCode == LEFT) xpos = constrain(xpos-5, 0, width-40);
+    if (keyPressed && keyCode == RIGHT) xpos = constrain(xpos+5, 0, 770);
+  }
+
+
+  void lastBlock()
+  { 
+    println(deadBlocks); 
+    if (deadBlocks==80)
+    { 
+      lastBlock=1000;
+    } else 
+    { 
+      lastBlock=0;
+    }
+  }  
+  /*void killLife()
    {
-     if (keyPressed && keyCode == LEFT) x = constrain(x-5,0,width);
-     if (keyPressed && keyCode == RIGHT) x = constrain(x+5,0,770);
-     if (keyPressed && keyCode == CONTROL && canShoot)
-     {  
-       bullets.add(new Bullet(x,y));
-       canShoot = false;
-       shootdelay = 0;
-      }
- 
-      shootdelay++;
-        
-      if (shootdelay >= 20) 
-       {
-          canShoot = true;
-       }
-     }
-}
+   boolean killed;
+   lives--;
+   } */
+} 
+
